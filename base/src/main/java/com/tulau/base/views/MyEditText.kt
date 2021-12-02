@@ -49,7 +49,7 @@ open class MyEditText : AppCompatEditText {
                 }
 
                 if (keyBoardInputCallbackListener != null) {
-                    keyBoardInputCallbackListener!!.onCommitContent(inputContentInfo, flags, opts)
+                    opts?.let { keyBoardInputCallbackListener!!.onCommitContent(inputContentInfo, flags, it) }
                 }
                 true  // return true if succeeded
             }
@@ -97,7 +97,7 @@ open class MyEditText : AppCompatEditText {
     override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection {
         val ic = super.onCreateInputConnection(outAttrs)
         EditorInfoCompat.setContentMimeTypes(outAttrs, imgTypeString)
-        return InputConnectionCompat.createWrapper(ic, outAttrs, callback)
+        return InputConnectionCompat.createWrapper(ic!!, outAttrs, callback)
     }
 
 
