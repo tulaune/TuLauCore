@@ -26,7 +26,9 @@ open class MyTextView : AppCompatTextView {
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
-        WidgetUtil.init(this, mTypefaces as MutableMap<String, Typeface>?, context, attrs!!)
+        if (attrs != null) {
+            WidgetUtil.init(this, mTypefaces as MutableMap<String, Typeface>?, context, attrs)
+        }
     }
 
 

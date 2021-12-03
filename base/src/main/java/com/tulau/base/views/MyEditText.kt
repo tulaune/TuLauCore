@@ -27,32 +27,32 @@ open class MyEditText : AppCompatEditText {
     private var keyBoardInputCallbackListener: KeyBoardInputCallbackListener? = null
 
     internal val callback: InputConnectionCompat.OnCommitContentListener =
-            InputConnectionCompat.OnCommitContentListener { inputContentInfo, flags, opts ->
-                // read and display inputContentInfo asynchronously
-                if (Build.VERSION.SDK_INT >= 25 && flags and InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION != 0) {
-                    try {
-                        inputContentInfo.requestPermission()
-                    } catch (e: Exception) {
-                        return@OnCommitContentListener false // return false if failed
-                    }
-
-                }
-                var supported = false
-                for (mimeType in imgTypeString!!) {
-                    if (inputContentInfo.description.hasMimeType(mimeType)) {
-                        supported = true
-                        break
-                    }
-                }
-                if (!supported) {
-                    return@OnCommitContentListener false
+        InputConnectionCompat.OnCommitContentListener { inputContentInfo, flags, opts ->
+            // read and display inputContentInfo asynchronously
+            if (Build.VERSION.SDK_INT >= 25 && flags and InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION != 0) {
+                try {
+                    inputContentInfo.requestPermission()
+                } catch (e: Exception) {
+                    return@OnCommitContentListener false // return false if failed
                 }
 
-                if (keyBoardInputCallbackListener != null) {
-                    opts?.let { keyBoardInputCallbackListener!!.onCommitContent(inputContentInfo, flags, it) }
-                }
-                true  // return true if succeeded
             }
+            var supported = false
+            for (mimeType in imgTypeString!!) {
+                if (inputContentInfo.description.hasMimeType(mimeType)) {
+                    supported = true
+                    break
+                }
+            }
+            if (!supported) {
+                return@OnCommitContentListener false
+            }
+
+            if (keyBoardInputCallbackListener != null) {
+                opts?.let { keyBoardInputCallbackListener!!.onCommitContent(inputContentInfo, flags, it) }
+            }
+            true  // return true if succeeded
+        }
 
     constructor(context: Context) : super(context) {
         init(context, null)
