@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.tulau.base.views.MyTextView
+    <com.tulaune.base.views.MyTextView
             android:id="@+id/tv_tag_item_contain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
