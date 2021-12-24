@@ -1,2 +1,0 @@
-# TuLauCore
-the new coreeeeeeeeeeee
